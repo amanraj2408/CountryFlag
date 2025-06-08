@@ -6,26 +6,26 @@ const Countries = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchCountries = async () => {
-      try {
-        const response = await fetch('https://xcountries-backend.azurewebsites.net/all');
-        
-        if (!response.ok) {
-          throw new Error(`Failed to fetch data: ${response.status}`);
-        }
-
-        const data = await response.json();
-        setCountries(data);
-      } catch (err) {
-        console.error('Error fetching countries:', err);
-        setError(err.message);
-      } finally {
-        setLoading(false);
+  const fetchCountries = async () => {
+    try {
+      const response = await fetch('https://xcountries-backend.azurewebsites.net/all');
+      
+      if (!response.ok) {
+        throw new Error(`Failed to fetch: ${response.status}`);
       }
-    };
 
-    fetchCountries();
-  }, []);
+      const data = await response.json();
+      setCountries(data);
+    } catch (err) {
+      console.error('Error fetching data: ', err);  // Changed this line
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchCountries();
+}, []);
 
   // Styles
   const styles = {
